@@ -10,11 +10,11 @@ using Microsoft.Extensions.Hosting;
 
 namespace MvcSample {
   public class Startup {
-    public Startup(IConfiguration configuration) {
-      Configuration = configuration;
-    }
-
     public IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration) {
+      this.Configuration = configuration;
+    }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services) {
@@ -22,7 +22,10 @@ namespace MvcSample {
 
       services.AddSingleton<IUserStore<IdentityUser>>(MemoryUserStore.Instance);
 
-      EnableReplitIFrameHosting(services);
+      if (Environment.GetEnvironmentVariable("REPLIT_SUPPORT") == "1") {
+        Console.Error.WriteLine("Enabling Replit.com IFrame Support.");
+        EnableReplitIFrameHosting(services);
+      }
 
       services.AddControllersWithViews();
       services.AddRazorPages();

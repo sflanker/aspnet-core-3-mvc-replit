@@ -1,2 +1,2 @@
 language = "c#"
-run="./dotnet run -p mvc"
+run = "./dotnet run -p mvc --launch-profile replit"
