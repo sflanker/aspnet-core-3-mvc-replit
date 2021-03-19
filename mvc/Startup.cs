@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +22,11 @@ namespace MvcSample {
 
       services.AddControllersWithViews();
       services.AddRazorPages();
+
+      services.AddAntiforgery(options => {
+        options.SuppressXFrameOptionsHeader = true;
+        options.Cookie.SameSite = SameSiteMode.Lax;
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,14 +46,6 @@ namespace MvcSample {
 
       app.UseAuthentication();
       app.UseAuthorization();
-
-      app.Use(async (context, next) => {
-        // I am trying to get the Registartion and Login pages to work from the replit.com preview,
-        // but for some reason the form post returns a 400 error with no details.
-        context.Response.Headers.Remove("X-Frame-Options");
-        context.Response.Headers.Add("Content-Security-Policy", "frame-ancestors 'self' https://replit.com;");
-        await next();
-      });
 
       app.UseEndpoints(endpoints => {
         endpoints.MapControllerRoute(
