@@ -1,5 +1,5 @@
 # Install .Net 3.1
-This sample repl demonstrates a Hack that allows you to use the new .NET5 sdk (3.1.407) with full dotnet cli and nuget support.
+This sample repl demonstrates a Hack that allows you to use the new .NET3 sdk (3.1.407) with full dotnet cli and nuget support.
 
 Clicking the Run command checks if latest sdk is installed (if not it is installed) and attempts to run current project. To run dotnet from the command prompt use the supplied script as follows
 

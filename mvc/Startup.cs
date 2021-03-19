@@ -41,6 +41,14 @@ namespace MvcSample {
       app.UseAuthentication();
       app.UseAuthorization();
 
+      app.Use(async (context, next) => {
+        // I am trying to get the Registartion and Login pages to work from the replit.com preview,
+        // but for some reason the form post returns a 400 error with no details.
+        context.Response.Headers.Remove("X-Frame-Options");
+        context.Response.Headers.Add("Content-Security-Policy", "frame-ancestors 'self' https://replit.com;");
+        await next();
+      });
+
       app.UseEndpoints(endpoints => {
         endpoints.MapControllerRoute(
           name: "default",

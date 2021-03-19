@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] - mvc</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap.min.css" />
+    @if (ViewData["RequireJQuery"] is Boolean &&  ((Boolean)ViewData["RequireJQuery"])) {
+      <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    }
 </head>
 <body>
     <header>
